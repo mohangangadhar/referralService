@@ -1,0 +1,39 @@
+{
+    "title": "Product",
+    "type": "object",
+    "properties": {
+        "id": {
+            "type": "number"
+        },
+        "order": {
+            "type": "number",
+            "minimum": 0
+        },
+        "status": {
+            "type": "string"
+        },
+        "name": {
+            "type": "string"
+        },
+        "phone": {
+            "type": "string"
+        },
+        "amount": {
+            "type": "number",
+            "minimum": 0
+        },
+        "incentive": {
+            "type": "number",
+            "minimum": 0
+        },
+        "refferal": {
+            "type": "string"
+        }
+    },
+    "required": [
+        "name",
+        "phone",
+        "amount",
+        "incentive"
+    ]
+}
