@@ -1,15 +1,15 @@
 {
-    "title": "Product",
+    "title": "OrderList",
     "type": "object",
     "properties": {
         "id": {
-            "type": "string"
+            "type": "number"
         },
         "order": {
             "type": "number",
             "minimum": 0
         },
-        "status": {
+        "order_status": {
             "type": "string"
         },
         "name": {

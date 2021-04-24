@@ -46,7 +46,7 @@ function insertProduct(product, res, db){
     var incentive = product.incentive;
     var refferal = product.refferal;
 
-    var sql = `insert into Product (orderId, status, name, phone, amount, incentive, refferal) 
+    var sql = `insert into OrderList (orderId, status, name, phone, amount, incentive, refferal) 
             VALUES 
             (?, ?, ?, ?, ?, ?, ?);`;
 
@@ -67,7 +67,7 @@ function insertProduct(product, res, db){
 
 function validateRequest(req, res) {
     var fs = require('fs');
-    var schema = JSON.parse(fs.readFileSync('app/data/product-schema.json', 'utf8'));
+    var schema = JSON.parse(fs.readFileSync('app/data/order-schema.json', 'utf8'));
 
     var JaySchema = require('jayschema');
     var js = new JaySchema();

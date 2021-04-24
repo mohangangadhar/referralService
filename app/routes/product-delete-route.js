@@ -45,7 +45,7 @@ function updateProduct(product, res, db){
     }
 
     else{
-        var sql = `delete from  Product where id = ?;`;
+        var sql = `delete from OrderList where id = ?;`;
         var values = [id];
 
         db.serialize(function () {

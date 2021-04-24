@@ -1,6 +1,6 @@
 module.exports = function (app, db) {
     app.get('/api/refsum', (req, res) => {
-        processData(res, "SELECT refferal, count(*) as orders, SUM(incentive) as incentive FROM product GROUP BY refferal");
+        processData(res, "SELECT refferal, count(*) as orders, SUM(incentive) as incentive FROM OrderList GROUP BY refferal");
     });
 
     function processData(res, sql) {

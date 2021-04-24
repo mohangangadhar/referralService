@@ -54,9 +54,9 @@ function updateProduct(product, res, db) {
     var refferal = product.refferal;
     var id = product.id;
 
-    var sql = `update Product
+    var sql = `update OrderList
             set orderId = ?,
-            status = ?,
+            order_status = ?,
             name = ?, 
             phone = ?, 
             amount = ?,
@@ -80,7 +80,7 @@ function updateProduct(product, res, db) {
 
 function validateRequest(req, res) {
     var fs = require('fs');
-    var schema = JSON.parse(fs.readFileSync('app/data/product-schema-update.json', 'utf8'));
+    var schema = JSON.parse(fs.readFileSync('app/data/order-schema-update.json', 'utf8'));
 
     var JaySchema = require('jayschema');
     var js = new JaySchema();

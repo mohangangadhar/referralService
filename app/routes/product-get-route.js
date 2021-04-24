@@ -3,7 +3,7 @@ module.exports = function(app, db) {
   // Load products by ID: http://localhost:4300/api/product/id/$id
   // example: http://localhost:4300/api/product/id/15
   app.get('/api/product/id/:id', (req, res) => {
-    processData(res, "SELECT * FROM product where id == "+req.params.id);
+    processData(res, "SELECT * FROM OrderList where id == "+req.params.id);
   });
 
   // Load products by attribute: http://localhost:4300/api/product/$attribute/$name
@@ -12,12 +12,12 @@ module.exports = function(app, db) {
   // $attribute = ['name', 'price', 'currency', 'description']*
   // * this is not checked values, wrong parameters will return in a DB error.
   app.get('/api/product/:attribute/:name', (req, res) => {
-    processData(res, "SELECT * FROM product where "+req.params.attribute+" = '"+req.params.name+"'");
+    processData(res, "SELECT * FROM OrderList where "+req.params.attribute+" = '"+req.params.name+"'");
   });
 
   // Load all products: http://localhost:4300/api/product/
   app.get('/api/product', (req, res) => {
-    processData(res, "SELECT * FROM product");
+    processData(res, "SELECT * FROM OrderList");
   });
 
   // Load products: http://localhost:4300/api/product/sort/$attribute
@@ -25,11 +25,11 @@ module.exports = function(app, db) {
   //          http://localhost:4300/api/product/sort/name
   // $attribute = ['name', 'price', 'currency', 'description']*
   app.get('/api/product/sort/:way', (req, res) => {
-    processData(res, "SELECT * FROM product order by " + req.params.way);
+    processData(res, "SELECT * FROM OrderList order by " + req.params.way);
   });
 
   app.get('/api/product/open', (req, res) => {
-    processData(res, 'SELECT * FROM product where refferal = ""');
+    processData(res, 'SELECT * FROM OrderList where refferal = ""');
   });
 
   // Load products: http://localhost:4300/api/product/sort/$direction/$attribute
@@ -47,7 +47,7 @@ module.exports = function(app, db) {
       res.status(404).send("Sorting direction invalid!");
     }
 
-    processData(res, "SELECT * FROM product order by " + way + " " + direction);
+    processData(res, "SELECT * FROM OrderList order by " + way + " " + direction);
   });
 
   function processData(res, sql){

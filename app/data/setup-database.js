@@ -1,5 +1,5 @@
 const {readFileSync} = require('fs');
-var sqlSchema = readFileSync('app/data/product-schema.sql').toString();
+var sqlSchema = readFileSync('app/data/order-schema.sql').toString();
 //var productSqlSchema = readFileSync('app/data/order-schema.sql').toString();
 
 module.exports = function(db) {

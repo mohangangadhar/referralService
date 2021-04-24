@@ -9,9 +9,8 @@ module.exports = function (app, db) {
         queryStringAuth: true,
     });
     app.get('/api/orders', (req, res) => {
-        api.get("orders", {
-            per_page: 100, // 20 products per page
-        }).then((response) => {
+        console.log(req.query);
+        api.get("orders", req.query).then((response) => {
             let map1 = response.data.map(x => {
                 return {
                     "orderId": x.id,
@@ -19,11 +18,11 @@ module.exports = function (app, db) {
                     "amount": x.total,
                     "name": x.billing.first_name + " " + x.billing.last_name,
                     "phone": x.billing.phone,
-                    "incentive": x.total * 0.15,
+                    "incentive": x.total * 0.075,
                     "refferal": ""
                 }
             });
-            processProducts(map1,req,db);
+            processProducts(map1, req, db);
             return res.send(map1);
 
         }).catch((error) => {
@@ -36,26 +35,26 @@ module.exports = function (app, db) {
         });
     });
 
-    function processProducts(req, res, db){
+    function processProducts(req, res, db) {
         for (var prod of req) {
             insertProduct(prod, res, db);
         }
-    }    
+    }
 
     function insertProduct(product, res, db) {
         var orderId = product.orderId;
-        var status = product.status;
+        var order_status = product.order_status;
         var name = product.name;
         var phone = product.phone;
         var amount = product.amount;
         var incentive = product.incentive;
         var refferal = product.refferal;
 
-        var sql = `insert into Product (orderId, status, name, phone, amount, incentive, refferal) 
+        var sql = `insert into OrderList (orderId, order_status, name, phone, amount, incentive, refferal) 
                 VALUES 
                 (?, ?, ?, ?, ?, ?, ?);`;
 
-        var values = [orderId, status, name, phone, amount, incentive, refferal];
+        var values = [orderId, order_status, name, phone, amount, incentive, refferal];
 
         db.serialize(function () {
             db.run(sql, values, function (err) {
