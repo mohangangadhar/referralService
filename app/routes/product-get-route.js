@@ -29,7 +29,7 @@ module.exports = function(app, db) {
   });
 
   app.get('/api/product/open', (req, res) => {
-    processData(res, 'SELECT * FROM OrderList where refferal = ""');
+    processData(res, 'SELECT * FROM OrderList where refferal = "" and order_status != "cancelled"');
   });
 
   // Load products: http://localhost:4300/api/product/sort/$direction/$attribute
