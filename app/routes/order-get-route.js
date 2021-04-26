@@ -35,6 +35,32 @@ module.exports = function (app, db) {
         });
     });
 
+    app.get('/api/orders/:id', (req, res) => {
+        console.log(req.query);
+        console.log(req.params.id);
+        api.get("orders/" + req.params.id, req.query).then((response) => {
+            console.log(response.data);
+            let map1 = {
+                "orderId": response.data.id,
+                "order_status": response.data.status,
+                "amount": response.data.total,
+                "name": response.data.billing.first_name + " " + response.data.billing.last_name,
+                "phone": response.data.billing.phone,
+                "incentive": response.data.total * 0.075,
+                "refferal": ""
+            }
+            insertProduct(map1, req, db);
+            return res.send(map1);
+
+        }).catch((error) => {
+            // Invalid request, for 4xx and 5xx statuses
+            console.log("Response Status:", error.response.status);
+            console.log("Response Headers:", error.response.headers);
+            console.log("Response Data:", error.response.data);
+        }).finally(() => {
+            // Always executed.
+        });
+    });
     function processProducts(req, res, db) {
         for (var prod of req) {
             insertProduct(prod, res, db);
